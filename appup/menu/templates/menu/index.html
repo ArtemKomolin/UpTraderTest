@@ -1,0 +1,32 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+
+<h1>{{title}}</h1>
+<a class="resume" href="https://nn.hh.ru/resume/63e1e2e0ff0ba18a520039ed1f6f326565764a">Резюме на hh</a>
+<ul>
+  {% for a in menu %}
+    <li>
+      {% if a.photo %}
+      <img src="{{a.photo.url}}" height='30px'>
+      {% endif %}
+      <a href="#{{ a.album }}" onclick="toggleMenu('{{ a.album }}-menu')">{{ a.album }}</a>
+        <ul id="{{ a.album }}-menu" style="display:none;">
+          {% for s in songs %}
+          {% if s.cat_id == a.id %}
+            <li>
+              <a href="#{{ a.album }}/{{ s.song }}" onclick="toggleMenu('{{ s.song }}-menu')">{{ s.song }}</a>
+              <ul id="{{ s.song }}-menu" style="display:none;">
+                <li>Release year: {{ a.year }}</li>
+              </ul>
+            </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
+
+
